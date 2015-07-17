@@ -5,6 +5,9 @@ Simple script that sends PushBullet notification if your team is live on UK TV !
 
 It is meant to be run periodically via cron. Once a day should be good.
 
+This example shows some live Real Madrid fixtures:
+
+![notification example screenshot](https://raw.githubusercontent.com/Saturn/live-football-ontv/master/screenshot.jpg)
 
 > http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
