@@ -17,7 +17,7 @@ Times displayed on the source site are UK time. This script runs a `datetime.now
 
 ####Config
 
-Config settings can be edited inside `config.py`
+Config settings can be edited inside `config.json`
 
 **`api_key`** - Pushbullet API key.
 
