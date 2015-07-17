@@ -71,9 +71,9 @@ Create a virtualenv inside of the projects directory for simplicity.
 Once inside virtualenv run `pip install -r requirements.txt` to install dependencies.
 
 **Cron example**
-
-`0 13 * * * cd /path/to/live-football-ontv; venv/bin/python run.py >/dev/null 2>&1`
-
+```
+0 13 * * * cd /path/to/live-football-ontv; venv/bin/python run.py >/dev/null 2>&1
+```
 ####PushBullet
 A PushBullet API_KEY is required in order to send pushes to your devices.
 
