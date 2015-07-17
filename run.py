@@ -74,7 +74,7 @@ def push(match):
     time = match["kickofftime"]
     channel = match["channels"]
 
-    time_format = '%A %d %Y'
+    time_format = '%A %d %b %Y'
 
     time = time.strftime(time_format)
 
