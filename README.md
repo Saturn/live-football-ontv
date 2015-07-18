@@ -3,7 +3,9 @@
 
 Simple script that sends PushBullet notification if your team is live on UK TV !
 
-It is meant to be run periodically via cron. Once a day should be good.
+**What is the point?** It is meant to be something you 'set and forget'. It is nice to get a simple notification reminding you that your team is on live. With the football blackout in the UK it is not always a given that your team is on live that often. Unless you support one of the big teams.
+
+It is meant to be run periodically via cron. How often depends on you. Maybe once a week will suit most cases.
 
 This example shows some live Real Madrid fixtures:
 
@@ -17,6 +19,8 @@ This example shows some live Real Madrid fixtures:
 4. Initiates a push notification for each match it finds
 
 Times displayed on the source site are UK time. This script runs a `datetime.now()` command so your current timezone may be different.
+
+The `live.py` file is meant to include all that is needed to get a list of fixtures parsed from the source website. `run.py` is what will run periodically and initiate the pushes.
 
 ####Config
 
