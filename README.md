@@ -3,6 +3,9 @@
 
 Simple script that sends PushBullet notification if your team is live on UK TV !
 
+> http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
+
+
 **What is the point?** It is meant to be something you 'set and forget'. It is nice to get a simple notification reminding you that your team is on live. With the football blackout in the UK it is not always a given that your team is on live that often. Unless you support one of the big teams.
 
 It is meant to be run periodically via cron. How often depends on you. Maybe once a week will suit most cases.
@@ -10,8 +13,6 @@ It is meant to be run periodically via cron. How often depends on you. Maybe onc
 This example shows some live Real Madrid fixtures:
 
 ![notification example screenshot](https://raw.githubusercontent.com/Saturn/live-football-ontv/master/screenshot.jpg)
-
-> http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
 1. Script pulls in all of the matches available on the http://www.live-footballontv.com page.
 2. Parses each match into a single list while applying a sane date format
@@ -48,7 +49,7 @@ Leave this empty if you wish want PushBullet to send to all of your devices. (Wh
 	"devices": [0, 3]
 }
 ```
-You will get notified when the script runs if Arsenal or Chelsea are playing within live on UK tv in the next 48 hours. (Or at least that is what I intend!!)
+You will get notified when the script runs if Arsenal or Chelsea are playing within live on UK television in the next 48 hours. (Or at least that is what I intend!!)
 
 In this config example the user wants to receive push messages on two devices. To figure out the index number of the devices you want:
 
@@ -70,6 +71,8 @@ You can change the 'nickname' of your devices at https://www.pushbullet.com/#set
 ####Installing
 
 Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.git`
+
+or download zip https://github.com/Saturn/live-football-ontv/archive/master.zip
 
 A virtualenv is highly recommended. https://virtualenv.pypa.io
 
