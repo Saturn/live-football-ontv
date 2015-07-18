@@ -1,7 +1,7 @@
 ## Live-Football-on-TV
 
 
-Simple script that sends PushBullet notification if your team is live on UK TV !
+Simple script that sends Pushbullet notification if your team is live on UK TV !
 
 > http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
@@ -34,7 +34,7 @@ Config settings can be edited inside `config.json`
 **`days_notice`** - How many days in advance does a match have to be before a push will be sent.
 
 **`devices`** - List of devices you want to push to. In the form of `[0,1,2]`. Each index represents the device you want to send to. To see your account's devices and their index `python run.py --devices`. 
-Leave this empty if you wish want PushBullet to send to all of your devices. (Which is default behaviour)
+Leave this empty if you wish want Pushbullet to send to all of your devices. (Which is default behaviour)
 
 #####Example config
 ```json
@@ -84,8 +84,8 @@ Once inside virtualenv run `pip install -r requirements.txt` to install dependen
 ```
 0 13 * * * cd /path/to/live-football-ontv; venv/bin/python run.py >/dev/null 2>&1
 ```
-####PushBullet
-A PushBullet API_KEY is required in order to send pushes to your devices.
+####Pushbullet
+A Pushbullet API_KEY is required in order to send pushes to your devices.
 
 Get your API_KEY here: '''https://www.pushbullet.com/#settings/account'''
 
