@@ -9,7 +9,8 @@ url = 'http://www.live-footballontv.com'
 headers = {'User-Agent': 'Football Push Notifications'}
 
 def convert_date(date):
-    """Returns datetime object"""
+    """Returns datetime object
+    This will allow the script to calculate timedeltas and reformat the date easily"""
     regex_date = re.compile('(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)+ \d{1,31}(th|rd|nd|st) +\w* \d\d\d\d')
     if not regex_date.match(date):
         raise Exception('Date was not the correct format')
@@ -28,12 +29,13 @@ def convert_date(date):
 
 
 def register_match(match, date):
-    """Parses match item into dict"""
+    """Parses the match item into a simple dict"""
     kotime = match[2].text
     if kotime == 'TBC':
         kotime = '12:00'
 
     kotime = kotime.split(':')
+    # Date of match plus the kick off time
     kotime = date + timedelta(hours=int(kotime[0]), minutes=int(kotime[1]))
 
 
@@ -50,7 +52,7 @@ def register_match(match, date):
 
 
 def search_matches(match_list, search_list):
-    """Return list of matches that match search"""
+    """Return list of football matches that match search"""
 
     search = re.compile('|'.join(search_list))
     my_matches = []
@@ -63,7 +65,7 @@ def search_matches(match_list, search_list):
 
 
 def gather_data():
-    """Returns list of matches"""
+    """Returns the list of matches"""
     soup = BeautifulSoup(requests.get(url, headers=headers).text, "html.parser")
 
     # Get rid of <hr> cruft
