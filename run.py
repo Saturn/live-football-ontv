@@ -3,7 +3,7 @@
 import json
 import argparse
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from pushbullet import PushBullet
 from live import gather_data, search_matches
 
@@ -28,8 +28,8 @@ def show_devices():
     """Print out the users' devices showing the index position
     User can then add whichever devices he wants to in the config"""
     pushbullet = PushBullet(api_key)
-    devices = pushbullet.devices
-    for i, device in enumerate(devices):
+    list_devices = pushbullet.devices
+    for i, device in enumerate(list_devices):
         print '['+str(i)+']  -->  ' + device.nickname
 
 # Command arguments
@@ -80,7 +80,7 @@ def push(match):
 
     title = 'Live match on TV'
     body = matchfixture+'\n'+competition+'\n'+time+'\n'+channel
-    
+
     send_push(title, body)
 
 

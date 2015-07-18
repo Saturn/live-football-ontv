@@ -11,20 +11,19 @@ headers = {'User-Agent': 'Football Push Notifications'}
 def convert_date(date):
     """Returns datetime object
     This will allow the script to calculate timedeltas and reformat the date easily"""
-    regex_date = re.compile('(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)+ \d{1,31}(th|rd|nd|st) +\w* \d\d\d\d')
+    regex_date = re.compile(r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)+ \d{1,31}(th|rd|nd|st) +\w* \d\d\d\d')
     if not regex_date.match(date):
         raise Exception('Date was not the correct format')
 
-    
     date = date.split(' ')
     date[1] = date[1][:-2]
     if len(date[1]) == 1:
         date[1] = '0'+date[1]
     date = ' '.join(date)
 
-    format = '%A %d %B %Y'
+    date_format = '%A %d %B %Y'
 
-    date_object = datetime.strptime(date, format)
+    date_object = datetime.strptime(date, date_format)
     return date_object
 
 
@@ -40,11 +39,11 @@ def register_match(match, date):
 
 
     match_dict = {
-                    "matchfixture": match[0].text,
-                    "competition": match[1].text,
-                    "kickofftime": kotime,
-                    "channels": match[3].text
-                    }
+        "matchfixture": match[0].text,
+        "competition": match[1].text,
+        "kickofftime": kotime,
+        "channels": match[3].text
+        }
 
     return match_dict
 
@@ -94,7 +93,7 @@ def gather_data():
                 else:
                     matches.append(register_match(cursor.contents, date))
                     cursor = cursor.findNextSibling()
-            except:
+            except Exception:
                 break
 
     return matches
