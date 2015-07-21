@@ -54,11 +54,8 @@ def search_matches(match_list, search_list):
     """Return list of football matches that match search"""
 
     search = re.compile('|'.join(search_list))
-    my_matches = []
-    for matches in match_list:
-        if search.search(matches["matchfixture"]):
-            my_matches.append(matches)
 
+    my_matches = [matches for matches in match_list if search.search(matches['matchfixture'])]
     return my_matches
 
 
