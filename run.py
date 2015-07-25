@@ -45,11 +45,11 @@ if args.devices:
 
 
 def less_than_days_notice(match):
-    """Returns true if match is in less than days_notice"""
+    """Returns true if match starts in less than days_notice"""
     time = match["kickofftime"]
 
     difference = time - datetime.now()
-    if difference.days > 0 and difference.days <= days_notice:
+    if difference.days <= days_notice:
         return True
     else:
         return False
