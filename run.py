@@ -22,6 +22,7 @@ api_key = config['api_key']
 my_teams = config['my_teams']
 days_notice = config['days_notice']
 devices = config['devices']
+ignore_list = config['ignore']
 
 
 def show_devices():
@@ -87,7 +88,7 @@ def push(match):
 if __name__ == '__main__':
     matches = gather_data()
 
-    my_matches = search_matches(matches, my_teams)
+    my_matches = search_matches(matches, my_teams, ignore_list)
 
     for match in my_matches:
         if less_than_days_notice(match):

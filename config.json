@@ -1,6 +1,7 @@
 {
 	"api_key": "",
 	"my_teams": ["Man Utd"],
-	"days_notice": 2,
-	"devices": [0]
+	"days_notice": 10,
+	"devices": [0],
+	"ignore": ["Ladies", "Women", "U21", "U18"]
 }
