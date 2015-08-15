@@ -50,8 +50,10 @@ def register_match(match, date):
 
 
 
-def search_matches(match_list, search_list, ignore_list=[]):
+def search_matches(match_list, search_list, ignore_list=None):
     """Return list of football matches that match search"""
+    if ignore_list is None:
+        ignore_list = []
 
     search = re.compile('|'.join(search_list))
 
