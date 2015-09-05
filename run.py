@@ -8,11 +8,6 @@ from pushbullet import PushBullet
 from live import gather_data, search_matches
 
 
-# Get rid of insecure warning
-from requests.packages import urllib3
-urllib3.disable_warnings()
-
-
 # Load config from config.json
 
 with open('config.json') as j:
