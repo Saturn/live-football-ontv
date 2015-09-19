@@ -1,16 +1,19 @@
 """ Parses http://www.live-footballontv.com for info about live matches """
 
 import re
+from datetime import datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+
 
 url = 'http://www.live-footballontv.com'
 headers = {'User-Agent': 'Football Push Notifications'}
 
+
 def convert_date(date):
     """Returns datetime object
-    This will allow the script to calculate timedeltas and reformat the date easily"""
+    This will allow the script to calculate timedeltas and
+    reformat the date easily"""
     regex_date = re.compile(r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)+ \d{1,31}(th|rd|nd|st) +\w* \d\d\d\d')
     if not regex_date.match(date):
         raise Exception('Date was not the correct format')
@@ -22,7 +25,6 @@ def convert_date(date):
     date = ' '.join(date)
 
     date_format = '%A %d %B %Y'
-
     date_object = datetime.strptime(date, date_format)
     return date_object
 
@@ -32,12 +34,9 @@ def register_match(match, date):
     kotime = match[2].text
     if kotime == 'TBC':
         kotime = '12:00'
-
     kotime = kotime.split(':')
     # Date of match plus the kick off time
     kotime = date + timedelta(hours=int(kotime[0]), minutes=int(kotime[1]))
-
-
     match_dict = {
         "matchfixture": match[0].text,
         "competition": match[1].text,
@@ -48,8 +47,6 @@ def register_match(match, date):
     return match_dict
 
 
-
-
 def search_matches(match_list, search_list, ignore_list=None):
     """Return list of football matches that match search"""
     if ignore_list is None:
@@ -57,14 +54,13 @@ def search_matches(match_list, search_list, ignore_list=None):
 
     search = re.compile('|'.join(search_list))
 
-    my_matches = [matches for matches in match_list if search.search(matches['matchfixture'])]
+    my_matches = [m for m in match_list if search.search(m['matchfixture'])]
 
     if ignore_list:
         ignore = re.compile('|'.join(ignore_list))
-        my_matches = [match for match in my_matches if not ignore.search(match["matchfixture"])]
+        my_matches = [m for m in my_matches if not ignore.search(m["matchfixture"])]
 
     return my_matches
-
 
 
 def gather_data():
@@ -77,15 +73,11 @@ def gather_data():
 
     # Get the date nodes
     result = soup.find_all('div', class_='span12 matchdate')
-
     dates = []
-
     for item in result:
         dates.append(item.parent)
-
     # Holds the list of dictionaries
     matches = []
-
     for item in dates:
         date = convert_date(item.text)
         cursor = item.findNextSibling()

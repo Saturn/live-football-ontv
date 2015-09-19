@@ -2,13 +2,11 @@
 
 import json
 import argparse
-
 from datetime import datetime
+
 from pushbullet import PushBullet
 from live import gather_data, search_matches
 
-
-# Load config from config.json
 
 with open('config.json') as j:
     config = json.load(j)
@@ -31,13 +29,13 @@ def show_devices():
 # Command arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--devices', action='store_true',
-    help='Print a list of your devices. See README for more info')
+                    help=('Print a list of your devices.',
+                          'See README for more info'))
 args = parser.parse_args()
 
 if args.devices:
     show_devices()
     quit()
-
 
 
 def less_than_days_notice(match):
@@ -49,7 +47,6 @@ def less_than_days_notice(match):
         return True
     else:
         return False
-
 
 
 def push(match):
