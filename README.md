@@ -1,27 +1,23 @@
 ## Live-Football-on-TV
 
-
 Simple script that sends Pushbullet notification if your team is live on UK TV !
 
 > http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
 
-**What is the point?** It is meant to be something you 'set and forget'. It is nice to get a simple notification reminding you that your team is on live. With the football blackout in the UK it is not always a given that your team is on live that often. Unless you support one of the big teams.
+**What is the point?** To keep on top of when your team is on live UK television.
 
-It is meant to be run periodically via cron. How often depends on you. Maybe once a week will suit most cases.
-
-This example shows some live Real Madrid fixtures:
+*Example notifications:*
 
 ![notification example screenshot](https://raw.githubusercontent.com/Saturn/live-football-ontv/master/screenshot.jpg)
 
 1. Script pulls in all of the matches available on the http://www.live-footballontv.com page.
-2. Parses each match into a single list while applying a sane date format
+2. Parses each match into a single list and adds datetime object
 3. Searches for matches based on your criteria such as *Arsenal* or *Bradford*
-4. Initiates a push notification for each match it finds
+4. Initiates a push notification for each match that fits your criteria
 
 Times displayed on the source site are UK time. This script runs a `datetime.now()` command so your current timezone may be different.
 
-The `live.py` file is meant to include all that is needed to get a list of fixtures parsed from the source website. `run.py` is what will run periodically and initiate the pushes.
 
 ####Config
 
@@ -29,14 +25,16 @@ Config settings can be edited inside `config.json`
 
 **`api_key`** - Pushbullet API key.
 
-**`my_teams`** - List of strings matching the team or teams you are interested in
+**`my_teams`** - List of strings matching the team or teams you are interested in.
 
 **`days_notice`** - How many days in advance does a match have to be before a push will be sent.
 
-**`devices`** - List of devices you want to push to. In the form of `[0,1,2]`. Each index represents the device you want to send to. To see your account's devices and their index `python run.py --devices`. 
-Leave this empty if you wish want Pushbullet to send to all of your devices. (Which is default behaviour)
+**`ignore`** - Ignore certain types of matches. Maybe you want *Arsenal* but not *Arsenal Ladies*.
 
-#####Example config
+**`devices`** - List of devices you want to push to. In the form of `[0,1,2]`. Each index represents the device you want to send to. To see your account's devices and their index `python run.py --devices`. 
+Leave this empty if you want Pushbullet to send to all of your devices. (Which is the default behaviour)
+
+**Example config**
 ```json
 {
 
@@ -46,10 +44,12 @@ Leave this empty if you wish want Pushbullet to send to all of your devices. (Wh
 
 	"days_notice": 2,
 
-	"devices": [0, 3]
+	"devices": [0, 3],
+
+	"ignore": ["Ladies", "Women", "U21", "U18"],
 }
 ```
-You will get notified when the script runs if Arsenal or Chelsea are playing within live on UK television in the next 48 hours. (Or at least that is what I intend!!)
+You will get notified when the script runs if Arsenal or Chelsea are playing within live on UK television in the next 48 hours.
 
 In this config example the user wants to receive push messages on two devices. To figure out the index number of the devices you want:
 
@@ -72,22 +72,15 @@ You can change the 'nickname' of your devices at https://www.pushbullet.com/#set
 
 Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.git`
 
-or download zip https://github.com/Saturn/live-football-ontv/archive/master.zip
+####Cron
 
-A virtualenv is highly recommended. https://virtualenv.pypa.io
-
-Create a virtualenv inside of the projects directory for simplicity.
-
-Once inside virtualenv run `pip install -r requirements.txt` to install dependencies.
-
-**Cron example**
 ```
-0 13 * * * cd /path/to/live-football-ontv; venv/bin/python run.py >/dev/null 2>&1
+0 13 * * * cd /path/to/live-football-ontv && python run.py > /dev/null 2>&1
 ```
+
 ####Pushbullet
 A Pushbullet API_KEY is required in order to send pushes to your devices.
 
 Get your API_KEY here: '''https://www.pushbullet.com/#settings/account'''
 
 API Documentation available here https://docs.pushbullet.com
-
