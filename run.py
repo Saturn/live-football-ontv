@@ -26,17 +26,6 @@ def show_devices():
     for i, device in enumerate(list_devices):
         print '['+str(i)+']  -->  ' + device.nickname
 
-# Command arguments
-parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--devices', action='store_true',
-                    help=('Print a list of your devices.',
-                          'See README for more info'))
-args = parser.parse_args()
-
-if args.devices:
-    show_devices()
-    quit()
-
 
 def less_than_days_notice(match):
     """Returns true if match starts in less than days_notice"""
@@ -78,6 +67,17 @@ def push(match):
 
 
 if __name__ == '__main__':
+
+    # Command arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--devices', action='store_true',
+                        help=('Print a list of your devices.',
+                              'See README for more info'))
+    args = parser.parse_args()
+    if args.devices:
+        show_devices()
+        quit()
+
     matches = gather_data()
 
     my_matches = search_matches(matches, my_teams, ignore_list)
