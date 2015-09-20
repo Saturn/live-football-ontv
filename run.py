@@ -30,9 +30,8 @@ def show_devices():
 def less_than_days_notice(match):
     """Returns true if match starts in less than days_notice"""
     time = match["kickofftime"]
-
     difference = time - datetime.now()
-    if difference.days <= days_notice:
+    if 0 < difference.days <= days_notice:
         return True
     else:
         return False
