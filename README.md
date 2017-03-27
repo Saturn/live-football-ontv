@@ -19,7 +19,7 @@ Simple script that sends Pushbullet notification if your team is live on UK TV !
 Times displayed on the source site are UK time. This script runs a `datetime.now()` command so your current timezone may be different.
 
 
-####Config
+#### Config
 
 Config settings can be edited inside `config.json`
 
@@ -68,17 +68,17 @@ In this config example the user wants to receive push messages on two devices. T
 You can change the 'nickname' of your devices at https://www.pushbullet.com/#settings/devices.
 
 
-####Installing
+#### Installing
 
 Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.git`
 
-####Cron
+#### Cron
 
 ```
 0 13 * * * cd /path/to/live-football-ontv && python run.py > /dev/null 2>&1
 ```
 
-####Pushbullet
+#### Pushbullet
 A Pushbullet API_KEY is required in order to send pushes to your devices.
 
 Get your API_KEY here: '''https://www.pushbullet.com/#settings/account'''
