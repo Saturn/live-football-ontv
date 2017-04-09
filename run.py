@@ -29,7 +29,7 @@ def show_devices():
 
 def less_than_days_notice(match):
     """Returns true if match starts in less than days_notice"""
-    time = match["kickofftime"]
+    time = match["date"]
     difference = time - datetime.now()
     if 0 < difference.days <= days_notice:
         return True
@@ -50,9 +50,9 @@ def push(match):
             for i in devices:
                 d[i].push_note(title=title, body=body)
 
-    matchfixture = match["matchfixture"]
+    matchfixture = match["fixture"]
     competition = match["competition"]
-    time = match["kickofftime"]
+    time = match["date"]
     channel = match["channels"]
 
     time_format = '%H:%M  -  %A %d %b %Y'

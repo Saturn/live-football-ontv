@@ -11,13 +11,8 @@ headers = {'User-Agent': 'Football Push Notifications'}
 
 
 def convert_date(date):
-    """Returns datetime object
-    This will allow the script to calculate timedeltas and
-    reformat the date easily"""
-    regex_date = re.compile(r'(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)+ \d{1,31}(th|rd|nd|st) +\w* \d\d\d\d')
-    if not regex_date.match(date):
-        raise Exception('Date was not the correct format')
-
+    """Returns datetime object from date string
+    eg Friday 6th October 2025"""
     date = date.split(' ')
     date[1] = date[1][:-2]
     if len(date[1]) == 1:
@@ -29,24 +24,6 @@ def convert_date(date):
     return date_object
 
 
-def register_match(match, date):
-    """Parses the match item into a simple dict"""
-    kotime = match[2].text
-    if kotime == 'TBC':
-        kotime = '12:00'
-    kotime = kotime.split(':')
-    # Date of match plus the kick off time
-    kotime = date + timedelta(hours=int(kotime[0]), minutes=int(kotime[1]))
-    match_dict = {
-        "matchfixture": match[0].text,
-        "competition": match[1].text,
-        "kickofftime": kotime,
-        "channels": match[3].text
-        }
-
-    return match_dict
-
-
 def search_matches(match_list, search_list, ignore_list=None):
     """Return list of football matches that match search"""
     if ignore_list is None:
@@ -54,42 +31,41 @@ def search_matches(match_list, search_list, ignore_list=None):
 
     search = re.compile('|'.join(search_list))
 
-    my_matches = [m for m in match_list if search.search(m['matchfixture'])]
+    my_matches = [m for m in match_list if search.search(m['fixture'])]
 
     if ignore_list:
         ignore = re.compile('|'.join(ignore_list))
-        my_matches = [m for m in my_matches if not ignore.search(m["matchfixture"])]
+        my_matches = [m for m in my_matches if not ignore.search(m["fixture"])]
 
     return my_matches
 
 
 def gather_data():
     """Returns the list of matches"""
-    soup = BeautifulSoup(requests.get(url, headers=headers).text, "html.parser")
+    soup = BeautifulSoup(requests.get(url, headers=headers).text)
 
-    # Get rid of <hr> cruft
-    for node in soup.findAll('hr'):
-        node.replaceWithChildren()
-
-    # Get the date nodes
-    result = soup.find_all('div', class_='span12 matchdate')
+    data = soup.find_all(True, {'class': ['matchdate',
+                                          'matchfixture',
+                                          'competition',
+                                          'kickofftime',
+                                          'channels']})
     dates = []
-    for item in result:
-        dates.append(item.parent)
-    # Holds the list of dictionaries
     matches = []
-    for item in dates:
-        date = convert_date(item.text)
-        cursor = item.findNextSibling()
-
-        while True:
-            try:
-                if cursor.next.attrs == {u'class': [u'span12', u'matchdate']}:
-                    break
-                else:
-                    matches.append(register_match(cursor.contents, date))
-                    cursor = cursor.findNextSibling()
-            except Exception:
-                break
+    i = 0
+    while i < len(data):
+        if 'matchdate' in data[i].attrs.values()[0]:
+            dates.append(convert_date(data[i].text))
+            i += 1
+        else:
+            d = {}
+            d['fixture'] = data[i].text
+            d['competition'] = data[i + 1].text
+            d['kotime'] = data[i + 2].text
+            d['channels'] = data[i + 3].text
+            hours, minutes = d['kotime'].split(':')
+            date = dates[-1] + timedelta(hours=int(hours), minutes=int(minutes))
+            d['date'] = date
+            matches.append(d)
+            i += 4
 
     return matches
