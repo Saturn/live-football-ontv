@@ -62,9 +62,11 @@ def gather_data():
             d['competition'] = data[i + 1].text
             d['kotime'] = data[i + 2].text
             d['channels'] = data[i + 3].text
-            hours, minutes = d['kotime'].split(':')
-            date = dates[-1] + timedelta(hours=int(hours), minutes=int(minutes))
-            d['date'] = date
+            kotime = d['kotime']
+            if kotime != 'TBC':
+                hours, minutes = kotime.split(':')
+                date = dates[-1] + timedelta(hours=int(hours), minutes=int(minutes))
+                d['date'] = date
             matches.append(d)
             i += 4
 
