@@ -44,7 +44,8 @@ def gather_data():
     """
     Returns the list of matches
     """
-    soup = BeautifulSoup(requests.get(url, headers=headers).text)
+    soup = BeautifulSoup(requests.get(url, headers=headers).text,
+                         'html.parser')
 
     data = soup.find_all(True, {'class': ['matchdate',
                                           'matchfixture',
