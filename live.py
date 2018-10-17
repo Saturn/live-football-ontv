@@ -19,8 +19,7 @@ def convert_date(date):
     date[1] = date[1][:-2]
     date = ' '.join(date)
 
-    date_format = '%A %d %B %Y'
-    return datetime.strptime(date, date_format)
+    return datetime.strptime(date, '%A %d %B %Y')
 
 
 def search_matches(match_list, search_list, ignore_list=None):
