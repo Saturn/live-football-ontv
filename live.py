@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-url = 'http://www.live-footballontv.com'
+url = 'https://www.live-footballontv.com'
 headers = {'User-Agent': 'Football Push Notifications'}
 
 
