@@ -26,7 +26,7 @@ def show_devices():
     pushbullet = PushBullet(api_key)
     list_devices = pushbullet.devices
     for i, device in enumerate(list_devices):
-        print '['+str(i)+']  -->  ' + device.nickname
+        print '[{}]  -->  {} ({})'.format(i, device.nickname, device.device_iden)
 
 
 def less_than_days_notice(match):
@@ -77,14 +77,14 @@ if __name__ == '__main__':
                         help=('Print a list of your devices.',
                               'See README for more info'))
     args = parser.parse_args()
+
     if args.devices:
         show_devices()
-        quit()
+    else:
+        matches = gather_data()
 
-    matches = gather_data()
+        my_matches = search_matches(matches, my_teams, ignore_list)
 
-    my_matches = search_matches(matches, my_teams, ignore_list)
-
-    for match in my_matches:
-        if less_than_days_notice(match):
-            push(match)
+        for match in my_matches:
+            if less_than_days_notice(match):
+                push(match)
