@@ -11,17 +11,16 @@ headers = {'User-Agent': 'Football Push Notifications'}
 
 
 def convert_date(date):
-    """Returns datetime object from date string
-    eg Friday 6th October 2025"""
+    """
+    Returns datetime object from date string e.g. Friday 6th October 2025
+    """
+    # Remove nd, th, rd
     date = date.split(' ')
     date[1] = date[1][:-2]
-    if len(date[1]) == 1:
-        date[1] = '0'+date[1]
     date = ' '.join(date)
 
     date_format = '%A %d %B %Y'
-    date_object = datetime.strptime(date, date_format)
-    return date_object
+    return datetime.strptime(date, date_format)
 
 
 def search_matches(match_list, search_list, ignore_list=None):
