@@ -19,8 +19,10 @@ ignore_list = config['ignore']
 
 
 def show_devices():
-    """Print out the users' devices showing the index position
-    User can then add whichever devices he wants to in the config"""
+    """
+    Print out the users' devices showing the index position
+    User can then add whichever devices he wants to in the config
+    """
     pushbullet = PushBullet(api_key)
     list_devices = pushbullet.devices
     for i, device in enumerate(list_devices):
@@ -28,7 +30,9 @@ def show_devices():
 
 
 def less_than_days_notice(match):
-    """Returns true if match starts in less than days_notice"""
+    """
+    Returns true if match starts in less than days_notice
+    """
     time = match["date"]
     difference = time - datetime.now()
     if 0 < difference.days <= days_notice:

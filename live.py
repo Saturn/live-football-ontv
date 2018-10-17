@@ -23,7 +23,9 @@ def convert_date(date):
 
 
 def search_matches(match_list, search_list, ignore_list=None):
-    """Return list of football matches that match search"""
+    """
+    Return list of football matches that match search
+    """
     if ignore_list is None:
         ignore_list = []
 
@@ -39,7 +41,9 @@ def search_matches(match_list, search_list, ignore_list=None):
 
 
 def gather_data():
-    """Returns the list of matches"""
+    """
+    Returns the list of matches
+    """
     soup = BeautifulSoup(requests.get(url, headers=headers).text)
 
     data = soup.find_all(True, {'class': ['matchdate',
