@@ -2,7 +2,7 @@
 
 Simple script that sends Pushbullet notification if your team is live on UK TV !
 
-> http://www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
+> www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
 
 **What is the point?** To keep on top of when your team is on live UK television.
@@ -11,12 +11,12 @@ Simple script that sends Pushbullet notification if your team is live on UK TV !
 
 ![notification example screenshot](https://raw.githubusercontent.com/Saturn/live-football-ontv/master/screenshot.jpg)
 
-1. Script pulls in all of the matches available on the http://www.live-footballontv.com page.
+1. Script pulls in all of the matches available on the www.live-footballontv.com page.
 2. Parses each match into a single list and adds datetime object
 3. Searches for matches based on your criteria such as *Arsenal* or *Bradford*
 4. Initiates a push notification for each match that fits your criteria
 
-Times displayed on the source site are UK time. This script runs a `datetime.now()` command so your current timezone may be different.
+Times displayed on the source site are UK time.
 
 
 #### Config
@@ -56,13 +56,13 @@ In this config example the user wants to receive push messages on two devices. T
 `python run.py --devices`
 
 ```
-[0]  -->  LGE Nexus 5
+[0]  -->  LGE Nexus 5 (iden_key_here)
 
-[1]  -->  Firefox
+[1]  -->  Firefox (iden_key_here)
 
-[2]  -->  Chrome
+[2]  -->  Chrome (iden_key_here)
 
-[3]  -->  Galaxy Tab 4
+[3]  -->  Galaxy Tab 4 (iden_key_here)
 ```
 
 You can change the 'nickname' of your devices at https://www.pushbullet.com/#settings/devices.
@@ -81,6 +81,6 @@ Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.gi
 #### Pushbullet
 A Pushbullet API_KEY is required in order to send pushes to your devices.
 
-Get your API_KEY here: '''https://www.pushbullet.com/#settings/account'''
+Get your API_KEY here https://www.pushbullet.com/#settings/account
 
 API Documentation available here https://docs.pushbullet.com
