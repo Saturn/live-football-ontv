@@ -34,22 +34,19 @@ def less_than_days_notice(match):
     """
     time = match["date"]
     difference = time - datetime.now()
-    if 0 < difference.days <= days_notice:
-        return True
+    return 0 < difference.days <= days_notice
+
+
+def send_push(title, body):
+    pushbullet = PushBullet(api_key)
+    if not device_idens:
+        pushbullet.push_note(title=title, body=body)
     else:
-        return False
+        for device in (device for device in pushbullet.devices if device.device_iden in device_idens):
+            pushbullet.push_note(title=title, body=body, device=device)
 
 
-def push(match):
-
-    def send_push(title, body):
-        pushbullet = PushBullet(api_key)
-        if not device_idens:
-            pushbullet.push_note(title=title, body=body)
-        else:
-            for device in (device for device in pushbullet.devices if device.device_iden in device_idens):
-                pushbullet.push_note(title=title, body=body, device=device)
-
+def push_match(match):
     matchfixture = match["fixture"]
     competition = match["competition"]
     time = match["date"]
@@ -83,4 +80,4 @@ if __name__ == '__main__':
 
         for match in my_matches:
             if less_than_days_notice(match):
-                push(match)
+                push_match(match)
