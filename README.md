@@ -4,20 +4,18 @@ Simple script that sends Pushbullet notification if your team is live on UK TV !
 
 > www.live-footballontv.com is dedicated to providing the most up-to-date, extensive and accurate listings of live football on TV in the UK. Live-FootballOnTV.Com includes schedules of live football on television from broadcasters including: Sky Sports, BT Sport, BBC, ITV, British Eurosport, S4C, Premier Sports and more.
 
-
 **What is the point?** To keep on top of when your team is on live UK television.
 
-*Example notifications:*
+_Example notifications:_
 
 ![notification example screenshot](https://raw.githubusercontent.com/Saturn/live-football-ontv/master/screenshot.jpg)
 
 1. Script pulls in all of the matches available on the www.live-footballontv.com page.
 2. Parses each match into a single list and adds datetime object
-3. Searches for matches based on your criteria such as *Arsenal* or *Bradford*
+3. Searches for matches based on your criteria such as _Arsenal_ or _Bradford_
 4. Initiates a push notification for each match that fits your criteria
 
 Times displayed on the source site are UK time.
-
 
 #### Config
 
@@ -29,29 +27,30 @@ Config settings can be edited inside `config.json`
 
 **`days_notice`** - How many days in advance does a match have to be before a push will be sent.
 
-**`ignore`** - Ignore certain types of matches. Maybe you want *Arsenal* but not *Arsenal Ladies*.
+**`ignore`** - Ignore certain types of matches. Maybe you want _Arsenal_ but not _Arsenal Ladies_.
 
-**`devices`** - List of devices you want to push to. In the form of `[0,1,2]`. Each index represents the device you want to send to. To see your account's devices and their index `python run.py --devices`. 
+**`devices`** - List of devices you want to push to. In the form of `["device_iden"]`. Each `device_iden` represents the device you want to send to. To see your account's devices and their index `python run.py --devices`.
 Leave this empty if you want Pushbullet to send to all of your devices. (Which is the default behaviour)
 
 **Example config**
+
 ```json
 {
+  "api_key": "PUSHBULLET__API__KEY",
 
-	"api_key": "PUSHBULLET__API__KEY",
+  "my_teams": ["Arsenal", "Chelsea"],
 
-	"my_teams": ["Arsenal", "Chelsea"],
+  "days_notice": 2,
 
-	"days_notice": 2,
+  "devices": [],
 
-	"devices": [0, 3],
-
-	"ignore": ["Ladies", "Women", "U21", "U18"],
+  "ignore": ["Ladies", "Women", "U21", "U18"]
 }
 ```
+
 You will get notified when the script runs if Arsenal or Chelsea are playing within live on UK television in the next 48 hours.
 
-In this config example the user wants to receive push messages on two devices. To figure out the index number of the devices you want:
+In this config example the user wants to receive push messages on two devices. To figure out the device iden of the devices you want:
 
 `python run.py --devices`
 
@@ -67,7 +66,6 @@ In this config example the user wants to receive push messages on two devices. T
 
 You can change the 'nickname' of your devices at https://www.pushbullet.com/#settings/devices.
 
-
 #### Installing
 
 Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.git`
@@ -79,6 +77,7 @@ Clone the repository. `git clone https://github.com/Saturn/live-football-ontv.gi
 ```
 
 #### Pushbullet
+
 A Pushbullet API_KEY is required in order to send pushes to your devices.
 
 Get your API_KEY here https://www.pushbullet.com/#settings/account
