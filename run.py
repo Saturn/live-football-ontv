@@ -39,11 +39,14 @@ def less_than_days_notice(match):
 
 def send_push(title, body):
     pushbullet = PushBullet(api_key)
+    body_subject = body.partition('\n')[0].strip()
     if not device_idens:
         pushbullet.push_note(title=title, body=body)
+        print "Pushed {0} to all devices".format(body_subject)
     else:
         for device in (device for device in pushbullet.devices if device.device_iden in device_idens):
             pushbullet.push_note(title=title, body=body, device=device)
+            print "Pushed [{0}] to [{1}]".format(body_subject, device)
 
 
 def push_match(match):
@@ -58,7 +61,7 @@ def push_match(match):
 
     title = 'Live match on TV'
     body = matchfixture+'\n'+competition+'\n'+time+'\n'+channel
-
+    body = body.encode('utf-8').strip()
     send_push(title, body)
 
 
