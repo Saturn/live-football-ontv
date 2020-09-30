@@ -29,7 +29,7 @@ Config settings can be edited inside `config.json`
 
 **`ignore`** - Ignore certain types of matches. Maybe you want _Arsenal_ but not _Arsenal Ladies_.
 
-**`devices`** - List of devices you want to push to. In the form of `["device_iden"]`. Each `device_iden` represents the device you want to send to. To see your account's devices and their index `python run.py --devices`.
+**`devices`** - List of devices you want to push to. In the form of `["device_iden"]`. Each `device_iden` represents the device you want to send to. To see your account's devices and their device iden `python run.py --devices`.
 Leave this empty if you want Pushbullet to send to all of your devices. (Which is the default behaviour)
 
 **Example config**
