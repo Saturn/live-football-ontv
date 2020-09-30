@@ -14,7 +14,7 @@ with open('config.json') as j:
 api_key = config['api_key']
 my_teams = config['my_teams']
 days_notice = config['days_notice']
-devices = config['devices']
+device_idens = config['devices']
 ignore_list = config['ignore']
 
 
@@ -24,8 +24,7 @@ def show_devices():
     User can then add whichever devices he wants to in the config
     """
     pushbullet = PushBullet(api_key)
-    list_devices = pushbullet.devices
-    for i, device in enumerate(list_devices):
+    for i, device in enumerate(pushbullet.devices):
         print '[{}]  -->  {} ({})'.format(i, device.nickname, device.device_iden)
 
 
@@ -45,14 +44,11 @@ def push(match):
 
     def send_push(title, body):
         pushbullet = PushBullet(api_key)
-        if not devices:
+        if not device_idens:
             pushbullet.push_note(title=title, body=body)
         else:
-            # load devices
-            d = pushbullet.devices
-
-            for i in devices:
-                d[i].push_note(title=title, body=body)
+            for device in (device for device in pushbullet.devices if device.device_iden in device_idens):
+                pushbullet.push_note(title=title, body=body, device=device)
 
     matchfixture = match["fixture"]
     competition = match["competition"]
